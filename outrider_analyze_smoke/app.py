@@ -30,6 +30,12 @@ def search_users(prefix: str) -> list[dict]:
     return db.search_users(prefix)
 
 
+@app.get("/users/by-email-domain")
+def users_by_email_domain(domain: str) -> list[dict]:
+    with db.connect() as conn:
+        return db.UserSearch(conn).by_email_domain(domain)
+
+
 @app.get("/ops/ping")
 def ops_ping(host: str) -> dict:
     result = runner.ping(host)
