@@ -17,7 +17,7 @@ on without confounding signal from large diffs or framework noise.
 outrider_analyze_smoke/
   app.py      # FastAPI handlers that wire db + runner together
   db.py       # SQLite helpers (parameterized on main)
-  runner.py   # subprocess wrappers (argv lists on main)
+Q6 probe fixture — line 20 modified to disambiguate line vs position.
 ```
 
 ## PR matrix
