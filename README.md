@@ -44,7 +44,8 @@ with zero findings (acceptable).
 ### PR 3 - skip-path
 
 Touch only a `.md` or `.js` file. Expect skip behavior, no analyze
-findings.
+findings. The change should be substantive enough to land a real diff
+(e.g. a clarifying note here) without touching any analyzable source.
 
 ### PR 4 - no-scope
 
