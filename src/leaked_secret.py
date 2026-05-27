@@ -1,12 +1,18 @@
+"""S3 upload helper."""
 import os
 
-# Trigger HARDCODED_SECRET / HIGH severity per SEVERITY_POLICY.
-# This is Stripe's documented test key — public-by-design, safe to commit.
-STRIPE_API_KEY = "sk_live_4eC39HqLyjWDarjtT1zdp7dc"  # noqa: S105
 
+def upload(bucket: str, key: str, body: bytes) -> dict:
+    """Upload an object to S3."""
+    import boto3
 
-def charge(amount_cents: int) -> dict:
-    """Charge a stripe customer the given amount."""
-    import stripe
-    stripe.api_key = STRIPE_API_KEY
-    return stripe.Charge.create(amount=amount_cents, currency="usd")
+    # Hardcoded credentials — should be in env vars or IAM role.
+    aws_access_key_id = "AKIAIOSFODNN7EXAMPLE"
+    aws_secret_access_key = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"  # noqa: S105
+
+    client = boto3.client(
+        "s3",
+        aws_access_key_id=aws_access_key_id,
+        aws_secret_access_key=aws_secret_access_key,
+    )
+    return client.put_object(Bucket=bucket, Key=key, Body=body)
