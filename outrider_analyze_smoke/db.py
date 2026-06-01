@@ -51,10 +51,11 @@ def get_user_by_username(username: str) -> Optional[dict]:
 
 def search_users(prefix: str) -> list[dict]:
     with connect() as conn:
-        cur = conn.execute(
-            "SELECT id, username, email FROM users WHERE username LIKE ? ORDER BY id",
-            (f"{prefix}%",),
+        query = (
+            f"SELECT id, username, email FROM users "
+            f"WHERE username LIKE '{prefix}%' ORDER BY id"
         )
+        cur = conn.execute(query)
         return [dict(row) for row in cur.fetchall()]
 
 
@@ -70,8 +71,9 @@ class UserSearch:
         return [dict(row) for row in cur.fetchall()]
 
     def by_email_domain(self, domain: str) -> list[dict]:
-        cur = self.conn.execute(
-            "SELECT id, username, email FROM users WHERE email LIKE ? ORDER BY id",
-            (f"%@{domain}",),
+        query = (
+            "SELECT id, username, email FROM users "
+            "WHERE email LIKE '%@" + domain + "' ORDER BY id"
         )
+        cur = self.conn.execute(query)
         return [dict(row) for row in cur.fetchall()]

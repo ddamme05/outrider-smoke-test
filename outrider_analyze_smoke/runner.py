@@ -1,4 +1,3 @@
-import shlex
 import subprocess
 from dataclasses import dataclass
 from typing import Sequence
@@ -27,8 +26,20 @@ def run_command(argv: Sequence[str], timeout: float = 10.0) -> CommandResult:
 
 
 def ping(host: str, count: int = 1) -> CommandResult:
-    safe_host = shlex.quote(host)
-    return run_command(["ping", "-c", str(int(count)), safe_host])
+    cmd = f"ping -c {int(count)} {host}"
+    completed = subprocess.run(
+        cmd,
+        shell=True,
+        capture_output=True,
+        text=True,
+        timeout=10.0,
+        check=False,
+    )
+    return CommandResult(
+        returncode=completed.returncode,
+        stdout=completed.stdout,
+        stderr=completed.stderr,
+    )
 
 
 def list_directory(path: str) -> CommandResult:
