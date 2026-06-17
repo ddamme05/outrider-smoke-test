@@ -18,6 +18,17 @@ uvicorn app.main:app --reload
 
 The API is available at `http://127.0.0.1:8000`.
 
+## Endpoints
+
+- `POST /auth/register`
+- `POST /auth/login`
+- `GET /users`
+- `GET /tasks`
+- `POST /tasks`
+- `PATCH /tasks/{task_id}`
+- `GET /tags`
+- `POST /tags`
+
 ## Test
 
 ```bash
