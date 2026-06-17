@@ -58,3 +58,37 @@ python -m venv .venv && . .venv/bin/activate
 pip install -r requirements.txt
 uvicorn outrider_analyze_smoke.app:app --reload
 ```
+
+## Taxonomy coverage PR
+
+The `taxonomy-finding-coverage` branch plants one focused issue per supported
+finding type, plus out-of-taxonomy probes and one clean schema file. The edge
+cases intentionally stay inside ordinary application files so triage can choose
+DEEP or STANDARD instead of skipping package initializers or config-only edits.
+
+Expected policy coverage:
+
+- `app/repositories/user_repo.py`: `sql_injection`
+- `app/services/ops_service.py`: `command_injection`
+- `app/security/access.py`: `auth_bypass`
+- `app/services/payment_service.py`: `hardcoded_secret`
+- `app/clients/http.py`: `tls_verify_disabled`
+- `app/services/session_service.py`: `unsafe_deserialization`
+- `app/services/file_service.py`: `path_traversal`
+- `app/routers/pages.py`: `xss`
+- `app/routers/users.py`: `missing_input_validation`
+- `app/services/feed_service.py`: `n_plus_one_query`
+- `app/routers/reports.py`: `blocking_call_in_async`
+- `app/models/event.py`: `deprecated_api`
+- `app/repositories/note_repo.py`: `missing_error_handling`
+- `app/services/billing_calc.py`: `missing_test`
+- `app/utils/text.py`: `unused_import`
+
+Out-of-taxonomy probes:
+
+- `app/security/crypto.py`: weak crypto and insecure randomness
+- `app/routers/redirect.py`: open redirect
+
+Clean control:
+
+- `app/schemas/note.py`: simple Pydantic read model
