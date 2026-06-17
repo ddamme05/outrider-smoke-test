@@ -34,3 +34,8 @@ The API is available at `http://127.0.0.1:8000`.
 ```bash
 pytest
 ```
+
+## Review notes
+
+The service is intentionally compact so review tools can compare clean model
+and schema files against riskier repository, router, service, and utility code.
