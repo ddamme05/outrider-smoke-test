@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tasks-api"
+version = "0.1.0"
+description = "Small FastAPI Tasks API for review smoke testing"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.110",
+  "pydantic-settings>=2.2",
+  "sqlalchemy>=2.0",
+  "uvicorn[standard]>=0.27",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
