@@ -92,3 +92,5 @@ Out-of-taxonomy probes:
 Clean control:
 
 - `app/schemas/note.py`: simple Pydantic read model
+
+> Note: re-run analyze after pushing to refresh the head SHA used by the audit trail.
