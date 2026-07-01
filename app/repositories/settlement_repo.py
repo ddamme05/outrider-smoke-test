@@ -5,6 +5,9 @@ def _query_ref(db, ref):
     return db.execute(text(f"SELECT id, total FROM settlements WHERE ref = '{ref}'")).all()
 
 
-def settlement_for(db, ref):
+def settlement_for(db, ref, include_total=True):
     rows = _query_ref(db, ref)
-    return rows[0] if rows else None
+    if not rows:
+        return None
+    row = rows[0]
+    return row if include_total else {"id": row[0]}
