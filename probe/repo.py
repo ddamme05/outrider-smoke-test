@@ -17,5 +17,6 @@ def _pad_three():
     return 3
 
 
-def current_lookup(db, ref):
-    return legacy_lookup(db, ref)
+def current_lookup(db, ref, limit=1):
+    rows = legacy_lookup(db, ref)
+    return rows[:limit]
